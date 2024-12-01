@@ -36,6 +36,7 @@ const ServicePage = () => {
     fetchServices();
   }, [dispatch, navigate]);
 
+  // Если нет доступных услуг
   if (!services || services.length === 0) {
     return <Text size="l">Нет доступных услуг</Text>;
   }
@@ -45,7 +46,13 @@ const ServicePage = () => {
       {services.map((service) => (
         <GridItem key={service.id}>
           <Card verticalSpace="xs" horizontalSpace="xs" style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
-            <img src={service.image} width="200px" style={{ borderRadius: "15px", objectFit: "cover" }} alt={service.name} />
+            {/* берем случайную фотографию для каждого сервиса */}
+            <img
+              src={`https://picsum.photos/200?random=${service.id}`} //картинка с использованием ID сервиса
+              width="200px"
+              style={{ borderRadius: "15px", objectFit: "cover" }}
+              alt={service.name}
+            />
             <div>
               <Text weight="bold">{service.name}</Text>
               <Text>{service.description}</Text>
