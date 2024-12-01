@@ -7,3 +7,14 @@
     align-items: center;
     gap: 1.5rem;
 }
+.fioletButton {
+    background-color: #800080; 
+    color: white;
+    border: 2px solid #800080; 
+  }
+  
+  .fioletButton:hover {
+    background-color: #9b30b6;
+    border-color: #9b30b6;
+  }
+  

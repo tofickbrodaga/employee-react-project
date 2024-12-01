@@ -61,13 +61,14 @@ const ServiceDetailPage = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "2rem" }}>
       <Text style={{ fontSize: "1.5rem", fontWeight: "bold" }}>{service?.name}</Text>
-      {service?.image && (
-        <img
-          src={service?.image}
-          alt={service?.name}
-          style={{ width: "500px", borderRadius: "15px", objectFit: "cover" }}
-        />
-      )}
+
+      {/* Генерация случайного изображения для сервиса, используя его ID */}
+      <img
+        src={`https://picsum.photos/500?random=${service?.id}`} // Используем ID сервиса для генерации уникального изображения
+        alt={service?.name}
+        style={{ width: "500px", borderRadius: "15px", objectFit: "cover" }}
+      />
+      
       <Text style={{ textAlign: 'center', maxWidth: '600px' }}>{service?.description}</Text>
       <Button onClick={handleNextService} label="Следующая услуга" />
     </div>

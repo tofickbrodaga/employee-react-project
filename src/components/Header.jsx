@@ -8,26 +8,43 @@ import { getToken, dropToken } from "../services/token";
 
 
 const Header = () => {
-    const {pathname} = useLocation()
+    const { pathname } = useLocation();
     const navigate = useNavigate();
 
     const handleLogout = () => {
         dropToken();
         navigate("/");
-    };    
+    };
+
     return (
-        <Layout  className={style.Header}>
+        <Layout className={style.Header}>
             <Menu />
             <div className={style.rightBlock}>
-            <NavLink to='/profile'>
-                <Button view={pathname==="/profile" ? "primary" : "secondary"} label='Ваш Профиль'></Button>
-            </NavLink>
-            <NavLink to='/login'>
-                {getToken() ? <Button view="secondary" onClick={handleLogout} label='Выход'></Button>
-                    : <Button view={pathname==="/login" ? "primary" : "secondary"} label='Вход'></Button>}
-            </NavLink></div>
+                <NavLink to='/profile'>
+                    <Button
+                        view={pathname === "/profile" ? "primary" : "secondary"}
+                        label='Ваш Профиль'
+                    />
+                </NavLink>
+                <NavLink to='/login'>
+                    {getToken() ? (
+                        <Button
+                            className={style.fioletButton} 
+                            view="secondary"
+                            onClick={handleLogout}
+                            label='Выход'
+                        />
+                    ) : (
+                        <Button
+                            className={style.fioletButton} 
+                            view={pathname === "/login" ? "primary" : "secondary"}
+                            label='Вход'
+                        />
+                    )}
+                </NavLink>
+            </div>
         </Layout>
-    )
+    );
 }
 
 export default Header;
