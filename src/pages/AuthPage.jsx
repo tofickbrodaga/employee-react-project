@@ -84,7 +84,7 @@ const AuthPage = () => {
 
       {/* Кнопка отправки формы */}
       <div style={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}>
-        <button type="submit" style={{ backgroundColor: 'white', border: '2px solid black', padding: '8px 16px', borderRadius: '5px' }}>
+        <button type="submit" style={{ backgroundColor: 'white', border: '2px solid black', padding: '8px 16px', borderRadius: '5px', color: "black" }}>
           Вход
         </button>
       </div>
