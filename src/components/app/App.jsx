@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { Theme, presetGpnDefault } from '@consta/uikit/Theme';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MainLayout from '../../layouts/main-layout/MainLayout';
+import MainLayout from '../../layouts/MainLayout';
 import { AppRoute } from '../../../const';
 import { Loader } from '@consta/uikit/Loader';
 import { Responses404 } from '@consta/uikit/Responses404';
