@@ -1,0 +1,9 @@
+.Header{
+    width: 100%;
+    justify-content: space-between;
+}
+.rightBlock{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
