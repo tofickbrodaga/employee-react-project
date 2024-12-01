@@ -8,7 +8,7 @@ const Footer = () => {
         <Layout className={style.Footer}>
             <Menu />
             <div>
-                <p>© 2024 Моя компания</p>
+                <p>© 2024   Sirius</p>
             </div>
         </Layout>
     )

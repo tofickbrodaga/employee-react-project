@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@consta/uikit/Button';
 import { Text } from '@consta/uikit/Text';
-import { useNavigate, useParams } from 'react-router-dom';
-import { getToken } from '../../services/token';
+import { getToken } from '../services/token';
 
 const ServiceDetailPage = () => {
   const [service, setService] = useState(null);
   const { id } = useParams();
+  const [serviceId, setServiceId] = useState(id);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,36 +20,56 @@ const ServiceDetailPage = () => {
       return;
     }
 
+    setLoading(true);
+    setError('');
+
     const fetchServiceDetails = async () => {
       try {
-        const response = await fetch(`https://673423afa042ab85d1190055.mockapi.io/api/v1/services/${id}`);
+        const response = await fetch(`https://673423afa042ab85d1190055.mockapi.io/api/v1/services/${serviceId}`);
+        if (!response.ok) {
+          throw new Error('Не удалось загрузить услугу');
+        }
+
         const serviceData = await response.json();
         setService(serviceData);
-      } catch (error) {
-        console.error("Error fetching service:", error);
+      } catch (err) {
+        setError(err.message || 'Произошла ошибка при загрузке услуги');
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchServiceDetails();
-  }, [id, navigate]);
+
+  }, [serviceId, navigate]);
 
   const handleNextService = () => {
-    const nextServiceId = (parseInt(id, 10) + 1).toString();
-    navigate(`/service/${nextServiceId}`);
+    setServiceId((prevId) => {
+      const nextId = parseInt(prevId, 10) + 1;
+      return nextId.toString();
+    });
   };
 
+  if (loading) {
+    return <Text size="l">Загрузка...</Text>;
+  }
+
+  if (error) {
+    return <Text size="l" view="critical">Ошибка: {error}</Text>;
+  }
+
   return (
-    <div style={{ alignItems: "center", display: "flex", flexDirection: "column", gap: "2rem" }}>
-      {service ? (
-        <>
-          <Text style={{ fontSize: "1.5rem" }}>{service.name}</Text>
-          <img src={service.image} width="500px" style={{ borderRadius: "15px" }} alt={service.name} />
-          <Text>{service.description}</Text>
-          <Button onClick={handleNextService} label="Следующая услуга" />
-        </>
-      ) : (
-        <Text>Загрузка...</Text>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "2rem" }}>
+      <Text style={{ fontSize: "1.5rem", fontWeight: "bold" }}>{service?.name}</Text>
+      {service?.image && (
+        <img
+          src={service?.image}
+          alt={service?.name}
+          style={{ width: "500px", borderRadius: "15px", objectFit: "cover" }}
+        />
       )}
+      <Text style={{ textAlign: 'center', maxWidth: '600px' }}>{service?.description}</Text>
+      <Button onClick={handleNextService} label="Следующая услуга" />
     </div>
   );
 };

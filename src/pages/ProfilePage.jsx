@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Text } from "@consta/uikit/Text";
-import { getToken } from "../../services/token";
+import { getToken } from "../services/token";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from "../../store/store";
-
+import { setUser } from "../store/store";
 
 const ProfilePage = () => {
-  const dispatch = useDispatch()
-  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  
+  const [loading, setLoading] = useState(true);  // Состояние для индикатора загрузки
+  const [error, setError] = useState("");        // Состояние для ошибок
 
   useEffect(() => {
     const userToken = getToken();
@@ -29,22 +31,32 @@ const ProfilePage = () => {
         });
 
         if (!response.ok) {
-          throw new Error("Failed to fetch user info");
+          throw new Error("Не удалось загрузить информацию о пользователе");
         }
 
         const userInfo = await response.json();
         dispatch(setUser(userInfo));
       } catch (err) {
-        setError(err.message || "An error occurred while fetching user info");
+        setError(err.message || "Произошла ошибка при загрузке данных пользователя");
       } finally {
         setLoading(false);
       }
     };
 
     fetchUserInfo();
-  }, [navigate]);
+  }, [dispatch, navigate]);
 
-    return (
+  // Если загрузка данных, отображаем индикатор
+  if (loading) {
+    return <Text size="l">Загрузка...</Text>;
+  }
+
+  // Если произошла ошибка, показываем сообщение
+  if (error) {
+    return <Text size="l" view="critical">Ошибка: {error}</Text>;
+  }
+
+  return (
     <div style={{ display: "flex", justifyContent: "space-between", width: "60vw" }}>
       <div>
         <Text size="xl" weight="bold">
@@ -57,11 +69,19 @@ const ProfilePage = () => {
         <Text view="secondary">Phone: {user?.phone}</Text>
         <Text view="secondary">Age: {user?.age}</Text>
       </div>
-      <img
-        src={user?.image}
-        alt="User Profile"
-        style={{ width: "150px", height: "150px", borderRadius: "50%", marginBottom: "16px" }}
-      />
+      {user?.image && (
+        <img
+          src={user?.image}
+          alt="User Profile"
+          style={{
+            width: "150px",
+            height: "150px",
+            borderRadius: "50%",
+            marginBottom: "16px",
+            objectFit: "cover", // Чтобы изображение не растягивалось
+          }}
+        />
+      )}
     </div>
   );
 };
