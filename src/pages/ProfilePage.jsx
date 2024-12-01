@@ -59,15 +59,15 @@ const ProfilePage = () => {
   return (
     <div style={{ display: "flex", justifyContent: "space-between", width: "60vw" }}>
       <div>
-        <Text size="xl" weight="bold">
+        <Text size="xl" weight="bold" style={{ color: 'white' }}>
           {user?.firstName} {user?.lastName}
         </Text>
-        <Text view="secondary">{user?.email}</Text>
-        <Text view="secondary" style={{ marginTop: "8px" }}>
+        <Text view="secondary" style={{ color: 'white' }}>{user?.email}</Text>
+        <Text view="secondary" style={{ color: 'white', marginTop: "8px" }}>
           Username: {user?.username}
         </Text>
-        <Text view="secondary">Phone: {user?.phone}</Text>
-        <Text view="secondary">Age: {user?.age}</Text>
+        <Text view="secondary" style={{ color: 'white' }}>Phone: {user?.phone}</Text>
+        <Text view="secondary" style={{ color: 'white' }}>Age: {user?.age}</Text>
       </div>
       {user?.image && (
         <img
