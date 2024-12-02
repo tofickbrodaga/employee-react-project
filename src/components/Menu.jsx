@@ -1,21 +1,26 @@
-import { Button } from "@consta/uikit/Button";
+import { Button } from "@consta/uikit/Button"; 
 import { NavLink, useLocation } from "react-router-dom";
-import style from "./Menu.module.css"
-
-
+import style from "./Menu.module.css";
 
 const Menu = () => {
-    const {pathname} = useLocation()
+    const { pathname } = useLocation();
+    
     return (
         <div className={style.Menu}>
-            <NavLink to='/' >
-                <Button view={pathname==="/" ? "primary" : "secondary"} label='Главная страница'></Button>
+            <NavLink to="/" className={({ isActive }) => isActive ? style.active : ""}>
+                <Button 
+                    view={pathname === "/" ? "primary" : "secondary"} 
+                    label="Главная страница" 
+                />
             </NavLink>
-            <NavLink to='/service' activeClassName={style.active}>
-                <Button view={pathname==="/service" ? "primary" : "secondary"}  label='Страница услуг'></Button>
+            <NavLink to="/service" className={({ isActive }) => isActive ? style.active : ""}>
+                <Button 
+                    view={pathname === "/service" ? "primary" : "secondary"} 
+                    label="Страница услуг" 
+                />
             </NavLink>
         </div>
     );
-}
+};
 
-export default Menu
+export default Menu;

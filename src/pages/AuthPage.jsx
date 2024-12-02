@@ -9,7 +9,6 @@ const AuthPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // Функция для отправки формы
   const onFormSubmit = async (event) => {
     event.preventDefault();
 

@@ -5,9 +5,10 @@ import Menu from './Menu';
 import React from 'react';
 import style from "./Header.module.css";
 import { getToken, dropToken } from "../services/token";
-
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+    const user = useSelector((state) => state.user);
     const { pathname } = useLocation();
     const navigate = useNavigate();
 
@@ -23,20 +24,20 @@ const Header = () => {
                 <NavLink to='/profile'>
                     <Button
                         view={pathname === "/profile" ? "primary" : "secondary"}
-                        label='Ваш Профиль'
+                        label={user?.firstName + " " + user?.lastName}
                     />
                 </NavLink>
                 <NavLink to='/login'>
                     {getToken() ? (
                         <Button
-                            className={style.fioletButton} 
+                            className={style.purpleButton} 
                             view="secondary"
                             onClick={handleLogout}
                             label='Выход'
                         />
                     ) : (
                         <Button
-                            className={style.fioletButton} 
+                            className={style.purpleButton} 
                             view={pathname === "/login" ? "primary" : "secondary"}
                             label='Вход'
                         />
