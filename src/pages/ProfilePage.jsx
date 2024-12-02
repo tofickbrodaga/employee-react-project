@@ -10,8 +10,8 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   
-  const [loading, setLoading] = useState(true);  // Состояние для индикатора загрузки
-  const [error, setError] = useState("");        // Состояние для ошибок
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const userToken = getToken();
@@ -46,12 +46,10 @@ const ProfilePage = () => {
     fetchUserInfo();
   }, [dispatch, navigate]);
 
-  // Если загрузка данных, отображаем индикатор
   if (loading) {
     return <Text size="l">Загрузка...</Text>;
   }
 
-  // Если произошла ошибка, показываем сообщение
   if (error) {
     return <Text size="l" view="critical">Ошибка: {error}</Text>;
   }
@@ -64,7 +62,7 @@ const ProfilePage = () => {
         </Text>
         <Text view="secondary" style={{ color: 'white' }}>{user?.email}</Text>
         <Text view="secondary" style={{ color: 'white', marginTop: "8px" }}>
-          Username: {user?.username}
+          Username: {user?.username} 
         </Text>
         <Text view="secondary" style={{ color: 'white' }}>Phone: {user?.phone}</Text>
         <Text view="secondary" style={{ color: 'white' }}>Age: {user?.age}</Text>
@@ -78,7 +76,7 @@ const ProfilePage = () => {
             height: "150px",
             borderRadius: "50%",
             marginBottom: "16px",
-            objectFit: "cover", // Чтобы изображение не растягивалось
+            objectFit: "cover",
           }}
         />
       )}

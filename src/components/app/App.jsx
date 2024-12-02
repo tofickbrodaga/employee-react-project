@@ -6,7 +6,6 @@ import { AppRoute } from '../../../const';
 import { Loader } from '@consta/uikit/Loader';
 import { Responses404 } from '@consta/uikit/Responses404';
 
-// Ленивая загрузка страниц
 const MainPage = React.lazy(() => import('../../pages/MainPage'));
 const ServicePage = React.lazy(() => import('../../pages/ServicePage'));
 const AuthPage = React.lazy(() => import('../../pages/AuthPage'));
@@ -14,7 +13,6 @@ const ProfilePage = React.lazy(() => import('../../pages/ProfilePage'));
 const ServiceDetailPage = React.lazy(() => import('../../pages/ServiceDetailPage'));
 
 const App = () => {
-  // Стили для загрузки и 404 страницы
   const loadingStyle = { width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' };
 
   return (
