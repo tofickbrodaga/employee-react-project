@@ -1,6 +1,6 @@
 # React Project
 ### Структура проекта
-    lk.sirius.react.project/
+    employee-react-project/
         public/              # публичная часть
         src/                 # рабочая часть
             components/      # компоненты React
