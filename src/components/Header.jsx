@@ -24,7 +24,7 @@ const Header = () => {
                 <NavLink to='/profile'>
                     <Button
                         view={pathname === "/profile" ? "primary" : "secondary"}
-                        label={user?.firstName + " " + user?.lastName}
+                        label={user ? `${user?.firstName} ${user?.lastName}` : "Гость"}
                     />
                 </NavLink>
                 <NavLink to='/login'>
